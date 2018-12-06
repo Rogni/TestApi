@@ -17,7 +17,7 @@ class TestRegisterUserApi:
         username = user.get('username')
         email = user.get('email')
         assert username == usr.username
-        assert email == usr.email
+        assert email == usr.email.lower()
     
     def check_user_view_model(self, usr: UserModel, response_body):
         assert not 'error' in response_body
@@ -31,7 +31,7 @@ class TestRegisterUserApi:
         email = user.get('email')
         usr_id = user.get('id')
         assert username == usr.username
-        assert email == usr.email
+        assert email == usr.email.lower()
         assert usr_id == usr.id
     
     def check_error(self, response, error):
@@ -92,7 +92,7 @@ class TestRegisterUserApi:
 
         usr.username = random_string(7)
         response_body = UserApi.register_user(usr).json()
-        self.check_error(response_body, 'Email {} already exist'.format(usr.email))
+        self.check_error(response_body, 'Email {} already exist'.format(usr.email.lower()))
 
         usr.email = random_string(7)
         response_body = UserApi.register_user(usr).json()
@@ -107,5 +107,10 @@ class TestRegisterUserApi:
         usr.password = random_string(6)
         response_body = UserApi.register_user(usr).json()
         self.check_error(response_body, "Password must be greater than 6 characters")
+
+    @pytest.mark.dependency(depends=['test_register_users'])
+    def test_invalid_token(self):
+        response = UserApi.current_user(random_string(16))
+        self.check_error(response.json(), "Invalid token")
 
 

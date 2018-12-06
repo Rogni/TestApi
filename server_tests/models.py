@@ -1,6 +1,6 @@
 import random, string
 
-def random_string(str_len, chars = string.ascii_lowercase):
+def random_string(str_len, chars = string.ascii_lowercase + string.ascii_uppercase + string.digits):
     return "".join((random.choice(chars) for _ in range(str_len)))
 
 class UserModel:
