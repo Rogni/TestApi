@@ -20,6 +20,7 @@ QtObject {
     property string userToken: userSettings.token
 
     property Settings userSettings: Settings {
+        category: "User Settings"
         property string token: root.userToken
     }
 }

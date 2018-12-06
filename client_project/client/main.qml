@@ -51,12 +51,18 @@ ApplicationWindow {
             ToolButton {
                 background: Item {}
                 visible: rootStackView.depth > 1
-                text: qsTr("Back to %1").arg(
-                          rootStackView.index > 0 ?
-                              rootStackView.get(rootStackView.index - 1).title :
-                              rootStackView.initialItem.title
-                          )
+                text: qsTr("<")
                 onClicked: rootStackView.pop()
+                font.pointSize: 12
+                contentItem: Text {
+                        text: parent.text
+                        font: parent.font
+                        opacity: enabled ? 1.0 : 0.3
+                        color: parent.down ? "#99999999" : "#ffffff"
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignVCenter
+                        elide: Text.ElideRight
+                    }
             }
 
         }
