@@ -81,7 +81,6 @@ ApplicationWindow {
     }
 
     Component.onCompleted: {
-        console.log(rootUserManager.userToken)
         rootApiManager.userApi.currentUser(rootUserManager.userToken, function (status, response) {
             if (status===200 && !response.error) {
                 rootUserManager.userLogin(response.token)
