@@ -33,7 +33,7 @@ BaseView {
                             emailTextField.text,
                             function (status, response) {
                                 if (status===200 && !response.error) {
-                                    registerSuccess()
+                                    registerSuccess(response.token)
                                 } else {
                                     registerFailed(response.error)
                                 }
@@ -42,9 +42,8 @@ BaseView {
         }
     }
 
-    function registerSuccess() {
-        pop()
-        push(mainViewComponent.createObject())
+    function registerSuccess(token) {
+        userManager.userLogin(token)
     }
 
     function registerFailed(error) {
@@ -61,13 +60,6 @@ BaseView {
             id: errLabel
             width: parent.width
             wrapMode: Text.WordWrap
-        }
-    }
-
-    Component {
-        id: mainViewComponent
-        MainView {
-
         }
     }
 }
