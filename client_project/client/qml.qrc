@@ -9,5 +9,6 @@
         <file>core/UserManager.qml</file>
         <file>core/ApiManager.qml</file>
         <file>core/api_models/UserApiModel.qml</file>
+        <file>views/RootView.qml</file>
     </qresource>
 </RCC>

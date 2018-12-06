@@ -7,9 +7,12 @@ Page {
 
     property ApiManager apiManager
     property StackView stackView
+    property UserManager userManager
+
     function push(item) {
         item.stackView = stackView
         item.apiManager = apiManager
+        item.userManager = userManager
         stackView.push(item)
     }
 

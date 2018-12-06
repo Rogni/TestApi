@@ -2,6 +2,10 @@ import QtQuick 2.11
 
 QtObject {
     id: root
+
+    signal userLogin(string token)
+    signal userLogout()
+
     property string serverUrl: "http://127.0.0.1:5000"
 
 
@@ -19,6 +23,10 @@ QtObject {
 
         function register(username, password, email, callback) {
             root.baseJSONRequest(registerUrl, 'POST', {username:username, password: password, email:email}, callback)
+        }
+
+        function currentUser(token, callback) {
+            root.baseJSONRequest(currentUserUrl, 'POST', {token:token}, callback)
         }
 
 

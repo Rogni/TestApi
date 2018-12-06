@@ -27,7 +27,7 @@ BaseView {
                             passwordTextField.text,
                             function (status, response) {
                                 if (status===200 && !response.error) {
-                                    loginSuccess()
+                                    loginSuccess(response.token)
                                 } else {
                                     loginFailed(response.error)
                                 }
@@ -36,9 +36,8 @@ BaseView {
         }
     }
 
-    function loginSuccess() {
-        pop()
-        push(mainViewComponent.createObject())
+    function loginSuccess(token) {
+        userManager.userLogin(token)
     }
 
     function loginFailed(error) {
@@ -55,15 +54,6 @@ BaseView {
             id: errLabel
             width: parent.width
             wrapMode: Text.WordWrap
-        }
-    }
-
-
-
-    Component {
-        id: mainViewComponent
-        MainView {
-
         }
     }
 }

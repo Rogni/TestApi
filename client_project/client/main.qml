@@ -4,13 +4,26 @@ import "views"
 import "core"
 
 ApplicationWindow {
+    id: root
     visible: true
     width: 640
     height: 480
     title: qsTr("Hello World")
 
     ApiManager {
-        id: apiManager
+        id: rootApiManager
+    }
+
+    UserManager {
+        id: rootUserManager
+        onUserLoginSig: {
+            rootStackView.clear()
+            rootView.push(mainViewComponent.createObject())
+        }
+        onUserLogoutSig: {
+            rootStackView.clear()
+            rootView.push(firstViewComponent.createObject())
+        }
     }
 
     header: ToolBar {
@@ -50,19 +63,41 @@ ApplicationWindow {
         Label {
             color: "#ffffff"
             anchors.centerIn: parent
-            text: rootStackView.currentItem.title
+            text: rootStackView.currentItem ? rootStackView.currentItem.title : ""
             font.pointSize: 12
         }
-
 
     }
 
     StackView {
         id: rootStackView
         anchors.fill: parent
-        initialItem: FirstView {
+        initialItem: RootView {
+            id: rootView
             stackView: rootStackView
-            apiManager: apiManager
+            apiManager: rootApiManager
+            userManager: rootUserManager
         }
+    }
+
+    Component.onCompleted: {
+        console.log(rootUserManager.userToken)
+        rootApiManager.userApi.currentUser(rootUserManager.userToken, function (status, response) {
+            if (status===200 && !response.error) {
+                rootUserManager.userLogin(response.token)
+            } else {
+                rootUserManager.userLogout()
+            }
+        })
+    }
+
+    Component {
+        id: mainViewComponent
+        MainView {}
+    }
+
+    Component {
+        id: firstViewComponent
+        FirstView {}
     }
 }

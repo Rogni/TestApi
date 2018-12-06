@@ -64,8 +64,6 @@ BaseView {
         }
     }
 
-
-
     Component {
         id: mainViewComponent
         MainView {
