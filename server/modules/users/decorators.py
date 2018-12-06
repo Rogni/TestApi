@@ -4,6 +4,7 @@ from .UserViewModels import (
                             username_already_exist, 
                             email_already_exist
                             ) 
+from app.view_models import error_view_model
 
 def user_found(username=None, email=None):
     def decorator(fun):
@@ -31,5 +32,17 @@ def user_not_found(username=None, email=None):
                 if user:
                     return email_already_exist(email)
             return fun()
+        return decored
+    return decorator
+
+
+def user_token_valid(token):
+    def decorator(fun):
+        def decored():
+            user = User.verify_auth_token(token)
+            if user:
+                return fun(user=user)
+            else:
+                return error_view_model("Invalid token")
         return decored
     return decorator

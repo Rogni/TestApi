@@ -4,7 +4,7 @@ from app.view_models import error_view_model
 from .UserModels import User
 from .UserViewModels import user_login_view_model
 from flask import request, jsonify
-from .decorators import user_found, user_not_found
+from .decorators import user_found, user_not_found, user_token_valid
 from expynent import EMAIL_ADDRESS
 import re
 
@@ -31,7 +31,7 @@ def user_register():
     @decorators.base_handle(has_parameters=["username", "password", "email"])
     def __register():
         username = request.json.get("username")
-        email = request.json.get("email")
+        email = request.json.get("email").lower()
         password = request.json.get("password")
         @decorators.check(len(username) > 6, "Username must be greater than 6 characters")
         @decorators.check(EMAIL_REG.match(email), "Not valid email")
@@ -50,8 +50,7 @@ def user_register():
 @app.route('/user/curr_user', methods=['POST'])
 def curr_user():
     @decorators.base_handle(has_parameters=["token"])
-    def __curr_user():
-        token = request.json.get("token")
-        user = User.verify_auth_token(token)
+    @user_token_valid(request.json.get("token"))
+    def __curr_user(user=None):
         return user_login_view_model(user)
     return __curr_user()

@@ -60,3 +60,5 @@ class User(db.Model):
             return None # invalid token
         user = User.query.get(data['id'])
         return user
+
+    
