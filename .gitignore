@@ -64,3 +64,8 @@ docs/_build/
 
 # PyBuilder
 target/
+
+# Qt
+*.pro.user
+*.qmlc
+build-client_project*/

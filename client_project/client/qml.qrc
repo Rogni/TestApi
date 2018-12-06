@@ -1,0 +1,13 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>views/LoginView.qml</file>
+        <file>views/RegisterView.qml</file>
+        <file>views/FirstView.qml</file>
+        <file>views/MainView.qml</file>
+        <file>views/BaseView.qml</file>
+        <file>core/UserManager.qml</file>
+        <file>core/ApiManager.qml</file>
+        <file>core/api_models/UserApiModel.qml</file>
+    </qresource>
+</RCC>
