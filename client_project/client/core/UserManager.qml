@@ -1,5 +1,5 @@
 import QtQuick 2.11
-import Qt.labs.settings 1.0
+import "./api_models"
 
 QtObject {
     id: root
@@ -7,20 +7,57 @@ QtObject {
     signal userLoginSig()
     signal userLogoutSig()
 
-    function userLogin (token) {
-        userToken = token
-        userLoginSig()
+    property ApiManager apiManager
+
+    function login(username, password, callback) {
+        callback = callback || function (response) {}
+
+        apiManager.userApi.login(username, password, function(response) {
+            if (!response.error) {
+                onUserLogget(response)
+            }
+            callback( response)
+        })
     }
 
-    function userLogout() {
-        userToken = ""
+    function register(username, password, email, callback) {
+        callback = callback || function (response) {}
+        apiManager.userApi.register(username, password, email, function(response) {
+            if (!response.error) {
+                onUserLogget(response)
+            }
+            callback( response)
+        })
+    }
+
+    function getCurrentUser() {
+        apiManager.userApi.currentUser(user.token, function (response) {
+            if (!response.error) {
+                onUserLogget(response)
+            } else {
+                logout()
+            }
+        })
+    }
+
+    function logout() {
+        user.token = ""
         userLogoutSig()
     }
 
-    property string userToken: userSettings.token
+    function onUserLogget(response) {
+        user.mapUserResponse(response)
+        userLoginSig()
+    }
 
-    property Settings userSettings: Settings {
-        category: "User Settings"
-        property string token: root.userToken
+    Component.onCompleted: getCurrentUser()
+
+    property UserApiModel user: UserApiModel {
+        function mapUserResponse(response) {
+            token = response.token
+            username = response.user.username
+            user_id = response.user.id
+            email = response.user.email
+        }
     }
 }

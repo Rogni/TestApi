@@ -22,22 +22,16 @@ BaseView {
             anchors.horizontalCenter: parent.horizontalCenter
             text: qsTr("Login")
             onClicked: {
-                apiManager.userApi.login(
+                userManager.login(
                             usernameTextField.text,
                             passwordTextField.text,
-                            function (status, response) {
-                                if (status===200 && !response.error) {
-                                    loginSuccess(response.token)
-                                } else {
+                            function (response) {
+                                if (response.error) {
                                     loginFailed(response.error)
                                 }
                             })
             }
         }
-    }
-
-    function loginSuccess(token) {
-        userManager.userLogin(token)
     }
 
     function loginFailed(error) {

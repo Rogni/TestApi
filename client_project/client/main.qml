@@ -1,5 +1,5 @@
-import QtQuick 2.11
-import QtQuick.Controls 2.4
+import QtQuick 2.12
+import QtQuick.Controls 2.12
 import "views"
 import "core"
 
@@ -16,6 +16,7 @@ ApplicationWindow {
 
     UserManager {
         id: rootUserManager
+        apiManager: rootApiManager
         onUserLoginSig: {
             rootStackView.clear()
             rootView.push(mainViewComponent.createObject())
@@ -84,16 +85,6 @@ ApplicationWindow {
             apiManager: rootApiManager
             userManager: rootUserManager
         }
-    }
-
-    Component.onCompleted: {
-        rootApiManager.userApi.currentUser(rootUserManager.userToken, function (status, response) {
-            if (status===200 && !response.error) {
-                rootUserManager.userLogin(response.token)
-            } else {
-                rootUserManager.userLogout()
-            }
-        })
     }
 
     Component {

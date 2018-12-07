@@ -1,10 +1,7 @@
-import QtQuick 2.11
+﻿import QtQuick 2.11
 
 QtObject {
     id: root
-
-    signal userLogin(string token)
-    signal userLogout()
 
     property string serverUrl: "http://127.0.0.1:5000"
 
@@ -40,9 +37,9 @@ QtObject {
         request.onreadystatechange = function () {
             if (request.readyState === XMLHttpRequest.DONE) {
                 if (request.status === 200) {
-                    callback(request.status, JSON.parse(request.responseText))
+                    callback(JSON.parse(request.responseText))
                 } else {
-                    callback(request.status, JSON.parse({error: "Server error"}))
+                    callback({error: "Server error"})
                 }
             }
         }

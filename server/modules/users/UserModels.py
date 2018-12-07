@@ -1,7 +1,6 @@
 from sqlalchemy import Column, String, Integer
 from passlib.apps import custom_app_context as pwd_context
 from app import db, app
-from sqlalchemy import Column, Integer
 from itsdangerous import (TimedJSONWebSignatureSerializer
                           as Serializer, BadSignature, SignatureExpired)
 

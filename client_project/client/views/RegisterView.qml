@@ -27,23 +27,17 @@ BaseView {
             anchors.horizontalCenter: parent.horizontalCenter
             text: qsTr("Register")
             onClicked: {
-                apiManager.userApi.register(
+                userManager.register(
                             usernameTextField.text,
                             passwordTextField.text,
                             emailTextField.text,
-                            function (status, response) {
-                                if (status===200 && !response.error) {
-                                    registerSuccess(response.token)
-                                } else {
+                            function (response) {
+                                if (response.error) {
                                     registerFailed(response.error)
                                 }
                             })
             }
         }
-    }
-
-    function registerSuccess(token) {
-        userManager.userLogin(token)
     }
 
     function registerFailed(error) {
