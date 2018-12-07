@@ -69,3 +69,4 @@ target/
 *.pro.user
 *.qmlc
 build-client_project*/
+*.pro.user.*
