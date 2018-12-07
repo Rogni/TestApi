@@ -50,6 +50,8 @@ QtObject {
         userLoginSig()
     }
 
+    property bool isUserLogget: user.token != ""
+
     Component.onCompleted: getCurrentUser()
 
     property UserApiModel user: UserApiModel {
