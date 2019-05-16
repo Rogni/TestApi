@@ -1,6 +1,6 @@
 <RCC>
     <qresource prefix="/">
-        <file>main.qml</file>
+        <file>MainWindow.qml</file>
         <file>views/LoginView.qml</file>
         <file>views/RegisterView.qml</file>
         <file>views/FirstView.qml</file>

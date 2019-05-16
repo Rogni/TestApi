@@ -10,6 +10,8 @@ ApplicationWindow {
     height: 480
     title: qsTr("Hello World")
 
+    property alias rootStackView: __rootStackView
+
     ApiManager {
         id: rootApiManager
     }
@@ -50,6 +52,7 @@ ApplicationWindow {
             spacing: 4
             padding: 4
             ToolButton {
+                objectName: "BackButton"
                 background: Item {}
                 visible: rootStackView.depth > 1
                 text: qsTr("<")
@@ -68,6 +71,7 @@ ApplicationWindow {
 
         }
         Label {
+            objectName: "MainWindowTitle"
             color: "#ffffff"
             anchors.centerIn: parent
             text: rootStackView.currentItem ? rootStackView.currentItem.title : ""
@@ -109,7 +113,7 @@ ApplicationWindow {
     }
 
     StackView {
-        id: rootStackView
+        id: __rootStackView
         anchors.fill: parent
         initialItem: RootView {
             id: rootView

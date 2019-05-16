@@ -2,6 +2,7 @@ import QtQuick 2.11
 import QtQuick.Controls 2.4
 
 BaseView {
+    objectName: "LoginView"
     title: qsTr("Login")
     Column {
         spacing: 8
