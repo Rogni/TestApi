@@ -25,6 +25,7 @@ BaseTestCase {
         var mainControllerWindow = mainWindowComponent.createObject()
         var firstViewController = mainControllerWindow.waitFirstView()
         compare(firstViewController.view.title, qsTr("Client"), "First view has title: 'Client'")
+        mainControllerWindow.checkTitle(qsTr("Client"))
     }
 
     function test_hasLoginAndRegisterButton() {
@@ -39,8 +40,12 @@ BaseTestCase {
         var firstViewController = mainControllerWindow.waitFirstView()
         firstViewController.clickOnLogin()
         var loginViewController = mainControllerWindow.waitLoginView()
-        compare(loginViewController.view.title, qsTr("Login"), "Login view has title: 'Login'")
-        wait(1000)
+        loginViewController.baseChecks()
+        mainControllerWindow.checkTitle(qsTr("Login"))
+
+        mainControllerWindow.clickOnBackButton()
+        firstViewController = mainControllerWindow.waitFirstView()
+        mainControllerWindow.checkTitle(qsTr("Client"))
     }
 
     function test_MoveToRegisterView() {

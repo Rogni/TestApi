@@ -5,6 +5,10 @@ QtObject {
     property TestCase testCase
     property var view
 
+    function compare(actual, expected, msg) {
+        testCase.compare(actual, expected, msg)
+    }
+
     function mouseClick(item) {
         return testCase.mouseClick(item)
     }

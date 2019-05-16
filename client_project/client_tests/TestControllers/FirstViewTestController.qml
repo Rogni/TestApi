@@ -8,9 +8,9 @@ BaseTestController {
 
 
     function checks() {
-        testCase.compare(view.title, qsTr("Client"))
-        testCase.compare(loginButton.text, qsTr("Login"))
-        testCase.compare(registerButton.text, qsTr("Register"))
+        compare(view.title, qsTr("Client"))
+        compare(loginButton.text, qsTr("Login"))
+        compare(registerButton.text, qsTr("Register"))
     }
 
     function clickOnLogin() {

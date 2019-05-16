@@ -30,9 +30,12 @@ BaseTestController {
         return waitView("FirstView", firstViewControllerComponent)
     }
 
-
     function waitLoginView() {
         return waitView("LoginView", loginViewControllerComponent)
+    }
+
+    function checkTitle(expected) {
+        compare(mainWindowTitle.text, expected, "Expected title on main window: %1".arg(expected))
     }
 
     function clickOnBackButton() {

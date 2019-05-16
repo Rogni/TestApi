@@ -9,17 +9,20 @@ BaseView {
         anchors.centerIn: parent
         TextField {
             id: usernameTextField
+            objectName: "UsernameTextField"
             placeholderText: qsTr("Username")
             selectByMouse: true
         }
         TextField {
             id: passwordTextField
+            objectName: "PasswordTextField"
             placeholderText: qsTr("Password")
             selectByMouse: true
             echoMode: TextField.Password
         }
 
         Button {
+            objectName: "LoginButton"
             anchors.horizontalCenter: parent.horizontalCenter
             text: qsTr("Login")
             onClicked: {
